@@ -81,7 +81,7 @@ class LatexOCR:
         if not os.path.exists(self.args.checkpoint):
             download_checkpoints()
         self.model = get_model(self.args)
-        print(f"Number of parameters: {count_parameters(model)}")
+        # print(f"Number of parameters: {count_parameters(model)}")
         self.model.load_state_dict(torch.load(self.args.checkpoint, map_location=self.args.device))
         self.model.eval()
 
@@ -92,8 +92,8 @@ class LatexOCR:
             self.image_resizer.eval()
         self.tokenizer = PreTrainedTokenizerFast(tokenizer_file=self.args.tokenizer)
 
-    def count_parameters(model):
-        return sum(p.numel() for p in model.parameters() if p.requires_grad)
+    # def count_parameters(model):
+    #     return sum(p.numel() for p in model.parameters() if p.requires_grad)
 
     @in_model_path()
     def __call__(self, img=None, resize=True) -> str:
